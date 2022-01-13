@@ -19,33 +19,33 @@ try {
 	$Rankings->rankingsMenu();
 	loadModuleConfigs('rankings');
 	
-	if(!mconfig('rankings_enable_gens')) throw new Exception(lang('error_44',true));
-	if(!mconfig('active')) throw new Exception(lang('error_44',true));
+	if(!mconfig('rankings_enable_gens')) {throw new Exception(lang('error_44',true));}
+	if(!mconfig('active')) {throw new Exception(lang('error_44',true));}
 	
 	$ranking_data = LoadCacheData('rankings_gens.cache');
-	if(!is_array($ranking_data)) throw new Exception(lang('error_58',true));
+	if(!is_array($ranking_data)) {throw new Exception(lang('error_58',true));}
 	
 	$showPlayerCountry = mconfig('show_country_flags') ? true : false;
 	$charactersCountry = loadCache('character_country.cache');
-	if(!is_array($charactersCountry)) $showPlayerCountry = false;
+	if(!is_array($charactersCountry)) {$showPlayerCountry = false;}
 	
-	if(mconfig('show_online_status')) $onlineCharacters = loadCache('online_characters.cache');
-	if(!is_array($onlineCharacters)) $onlineCharacters = array();
+	if(mconfig('show_online_status')) {$onlineCharacters = loadCache('online_characters.cache');}
+	if(!is_array($onlineCharacters)) {$onlineCharacters = array();}
 	
-	if(mconfig('rankings_class_filter')) $Rankings->rankingsFilterMenu();
+	if(mconfig('rankings_class_filter')) {$Rankings->rankingsFilterMenu();}
 	
 	echo '<table class="rankings-table">';
 	echo '<tr>';
 	if(mconfig('rankings_show_place_number')) { 
 		echo '<td style="font-weight:bold;"></td>';
 	}
-	if($showPlayerCountry) echo '<td style="font-weight:bold;">'.lang('rankings_txt_33').'</td>';
+	if($showPlayerCountry) {echo '<td style="font-weight:bold;">'.lang('rankings_txt_33').'</td>';}
 	echo '<td style="font-weight:bold;">'.lang('rankings_txt_11').'</td>';
 	echo '<td style="font-weight:bold;">'.lang('rankings_txt_29').'</td>';
 	echo '<td style="font-weight:bold;">'.lang('rankings_txt_10').'</td>';
 	echo '<td style="font-weight:bold;">'.lang('rankings_txt_30').'</td>';
 	echo '<td style="font-weight:bold;">'.lang('rankings_txt_31').'</td>';
-	if(mconfig('show_location')) echo '<td style="font-weight:bold;">'.lang('rankings_txt_34').'</td>';
+	if(mconfig('show_location')) {echo '<td style="font-weight:bold;">'.lang('rankings_txt_34').'</td>';}
 	echo '</tr>';
 	$i = 0;
 	foreach($ranking_data as $rdata) {
@@ -57,13 +57,13 @@ try {
 			if(mconfig('rankings_show_place_number')) {
 				echo '<td class="rankings-table-place">'.$i.'</td>';
 			}
-			if($showPlayerCountry) echo '<td><img src="'.getCountryFlag($charactersCountry[$rdata[0]]).'" /></td>';
+			if($showPlayerCountry) {echo '<td><img src="'.getCountryFlag($charactersCountry[$rdata[0]]).'" /></td>';}
 			echo '<td>'.$characterClass.'</td>';
 			echo '<td>'.$gensType.'</td>';
 			echo '<td>'.playerProfile($rdata[0]).$onlineStatus.'</td>';
 			echo '<td>'.$rdata[3].'</td>';
 			echo '<td>'.number_format($rdata[2]).'</td>';
-			if(mconfig('show_location')) echo '<td>'.returnMapName($rdata[5]).'</td>';
+			if(mconfig('show_location')) {echo '<td>'.returnMapName($rdata[5]).'</td>';}
 			echo '</tr>';
 		}
 		$i++;
